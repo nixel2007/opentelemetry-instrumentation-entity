@@ -3,7 +3,7 @@
 [![Quality Gate Status](https://sonar.openbsl.ru/api/project_badges/measure?project=opentelemetry-instrumentation-entity&metric=alert_status)](https://sonar.openbsl.ru/dashboard?id=opentelemetry-instrumentation-entity)
 [![Coverage](https://sonar.openbsl.ru/api/project_badges/measure?project=opentelemetry-instrumentation-entity&metric=coverage)](https://sonar.openbsl.ru/dashboard?id=opentelemetry-instrumentation-entity)
 
-Инструментирование [entity](https://github.com/nixel2007/entity) для [OpenTelemetry SDK](https://github.com/nixel2007/opentelemetry): операции менеджера сущностей, запросы к СУБД, соединения пула и транзакции становятся спанами и метриками. Аналог инструментирования JDBC и Hibernate в Java: ORM ничего не знает об OpenTelemetry, а библиотека подписывается на его события через интерфейс `НаблюдательСущностей`.
+Инструментирование [entity](https://github.com/nixel2007/entity) для [OpenTelemetry SDK](https://github.com/nixel2007/opentelemetry): операции менеджера сущностей, запросы к СУБД, соединения и транзакции его источника данных становятся спанами и метриками. Аналог инструментирования JDBC и Hibernate в Java: ORM ничего не знает об OpenTelemetry, а библиотека подписывается на его события через интерфейс `НаблюдательИсточникаДанных`.
 
 ## Установка
 
@@ -24,7 +24,7 @@ opm install opentelemetry-instrumentation-entity
 
 МенеджерСущностей = Новый МенеджерСущностей(Тип("КоннекторPostgreSQL"), СтрокаСоединения);
 МенеджерСущностей.ДобавитьКлассВМодель(Тип("Автор"));
-МенеджерСущностей.ДобавитьНаблюдателя(Новый ОтелНаблюдательСущностей(
+МенеджерСущностей.ДобавитьНаблюдателя(Новый ОтелНаблюдательИсточникаДанных(
     Сдк.ПолучитьТрассировщик("entity"),
     Сдк.ПолучитьМетр("entity")
 ));
@@ -66,7 +66,7 @@ opm install opentelemetry-instrumentation-entity
 | `Метрики` | `Истина` | Регистрировать инструменты и писать метрики |
 
 ```bsl
-Наблюдатель = Новый ОтелНаблюдательСущностей(Трассировщик, Метр, Новый Структура("ТекстЗапроса", Ложь));
+Наблюдатель = Новый ОтелНаблюдательИсточникаДанных(Трассировщик, Метр, Новый Структура("ТекстЗапроса", Ложь));
 ```
 
 `Неопределено` вместо трассировщика выключает спаны, вместо метра - метрики. Выключенный трассировщик SDK дает незаписывающие спаны, метрики при этом пишутся.
@@ -74,8 +74,8 @@ opm install opentelemetry-instrumentation-entity
 ## Документация
 
 - [Руководство](docs/product/010-index.md)
-- [Справочник API](docs/api/ОтелНаблюдательСущностей.md)
-- [Наблюдатели сущностей в entity](https://github.com/nixel2007/entity/blob/develop/docs/Наблюдатели.md)
+- [Справочник API](docs/api/ОтелНаблюдательИсточникаДанных.md)
+- [Наблюдатели источника данных в entity](https://github.com/nixel2007/entity/blob/master/docs/Наблюдатели.md)
 
 ## Лицензия
 
