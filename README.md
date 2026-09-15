@@ -37,6 +37,20 @@ opm install opentelemetry-instrumentation-entity
 
 Наблюдатель регистрируется на источнике данных и видит события всех менеджеров, созданных из него, включая создание таблиц при `Инициализировать`. В приложениях на [Autumn](https://github.com/autumn-library/autumn) регистрацию выполняет `autumn-opentelemetry` вместе с `autumn-data`, вручную ничего делать не нужно.
 
+Вызовы методов хранилищ сущностей инструментируются отдельно — `ОтелИнструментированиеХранилища` оборачивает хранилище и дает спан на каждый вызов:
+
+```bsl
+Инструментирование = Новый ОтелИнструментированиеХранилища(
+    Сдк.ПолучитьТрассировщик("entity"),
+    Сдк.ПолучитьМетр("entity")
+);
+
+Хранилище = Инструментирование.Обернуть(
+    МенеджерСущностей.ПолучитьХранилищеСущностей(Тип("Автор")),
+    "ХранилищеАвторы"
+);
+```
+
 ## Сигналы
 
 | Сигнал | Имя | Атрибуты |
@@ -51,6 +65,8 @@ opm install opentelemetry-instrumentation-entity
 | Датчик | `db.client.connection.max`, `db.client.connection.pending_requests` | `db.client.connection.pool.name` |
 | Гистограмма, с | `db.client.connection.wait_time`, `db.client.connection.create_time` | `db.client.connection.pool.name` |
 | Счетчик | `db.client.connection.timeouts` | `db.client.connection.pool.name` |
+| Спан INTERNAL | `{ИмяХранилища}.{ИмяМетода}` - `ХранилищеАвторы.НайтиПоИмени` | `code.namespace`, `code.function.name`, `error.type` |
+| Гистограмма, с | `entity.repository.invocations` | `entity.repository`, `code.function.name`, `entity.repository.state`: `success`, `error`, `error.type` |
 
 Спаны вложены как вызовы: операция из прикладного кода - корень, разыменование ссылок и чтение подчиненных таблиц - дочерние операции, запросы к СУБД - листья. Каскад и N+1 видны как вложенность. `BEGIN`, `COMMIT` и `ROLLBACK` - обычные спаны запроса, долгоживущего спана транзакции нет.
 
@@ -76,7 +92,8 @@ opm install opentelemetry-instrumentation-entity
 ## Документация
 
 - [Руководство](docs/product/010-index.md)
-- [Справочник API](docs/api/ОтелНаблюдательИсточникаДанных.md)
+- [ОтелНаблюдательИсточникаДанных](docs/api/ОтелНаблюдательИсточникаДанных.md)
+- [ОтелИнструментированиеХранилища](docs/api/ОтелИнструментированиеХранилища.md)
 - [Наблюдатели источника данных в entity](https://github.com/nixel2007/entity/blob/master/docs/Наблюдатели.md)
 
 ## Лицензия
