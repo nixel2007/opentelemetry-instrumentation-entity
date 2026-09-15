@@ -16,3 +16,7 @@ jobs:
       oscript_version: ${{ matrix.oscript_version }}
       test_engine: oneunit
       test_dir_paths: tests
+      # macos-latest - это Apple Silicon, а пакет sql везет нативную SQLite только под
+      # osx-x64: коннектор SQLite там не грузится. Тесты на маке гоняются на x64-раннере,
+      # как в entity.
+      os_versions: '["ubuntu-latest", "windows-latest", "macos-15-intel"]'
