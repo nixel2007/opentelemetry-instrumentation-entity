@@ -105,7 +105,7 @@ title: Инструментирование entity
 | Гистограмма | `db.client.connection.wait_time` | с | `db.client.connection.pool.name` |
 | Гистограмма | `db.client.connection.create_time` | с | `db.client.connection.pool.name` |
 | Счетчик | `db.client.connection.timeouts` | `{timeout}` | `db.client.connection.pool.name` |
-| Гистограмма | `entity.repository.invocations` | с | `entity.repository`, `code.function.name`, `entity.repository.state` (`success` или `error`), `error.type` |
+| Гистограмма | `entity.repository.invocation.duration` | с | `entity.repository`, `code.function.name`, `entity.repository.state` (`success` или `error`), `error.type` |
 
 `entity.entities` считает сущности, прошедшие через операции: сохранение и удаление - по одной, чтение - по числу прочитанных строк. `entity.transactions` считает исходы: `failed` - фиксация или отмена завершились ошибкой, `abandoned` - поток исполнения завершился, не закрыв транзакцию, и пул откатил ее.
 

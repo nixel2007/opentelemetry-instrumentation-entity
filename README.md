@@ -62,7 +62,7 @@ opm install opentelemetry-instrumentation-entity
 | Датчик | `db.client.connection.max`, `db.client.connection.pending_requests` | `db.client.connection.pool.name` |
 | Гистограмма, с | `db.client.connection.wait_time`, `db.client.connection.create_time` | `db.client.connection.pool.name` |
 | Счетчик | `db.client.connection.timeouts` | `db.client.connection.pool.name` |
-| Гистограмма, с | `entity.repository.invocations` | `entity.repository`, `code.function.name`, `entity.repository.state` (`success` или `error`), `error.type` |
+| Гистограмма, с | `entity.repository.invocation.duration` | `entity.repository`, `code.function.name`, `entity.repository.state` (`success` или `error`), `error.type` |
 
 Спаны вложены как вызовы: операция из прикладного кода - корень, разыменование ссылок и чтение подчиненных таблиц - дочерние операции, запросы к СУБД - листья. Каскад и N+1 видны как вложенность. `BEGIN`, `COMMIT` и `ROLLBACK` - обычные спаны запроса, долгоживущего спана транзакции нет.
 
