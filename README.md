@@ -66,7 +66,7 @@ opm install opentelemetry-instrumentation-entity
 | Гистограмма, с | `db.client.connection.wait_time`, `db.client.connection.create_time` | `db.client.connection.pool.name` |
 | Счетчик | `db.client.connection.timeouts` | `db.client.connection.pool.name` |
 | Спан INTERNAL | `{ИмяХранилищаСущностей}.{ИмяМетода}` - `ХранилищеАвторы.НайтиПоИмени` | `code.namespace`, `code.function.name`, `error.type` |
-| Гистограмма, с | `entity.repository.invocations` | `entity.repository`, `code.function.name`, `entity.repository.state`: `success`, `error`, `error.type` |
+| Гистограмма, с | `entity.repository.invocations` | `entity.repository`, `code.function.name`, `entity.repository.state` (`success` или `error`), `error.type` |
 
 Спаны вложены как вызовы: операция из прикладного кода - корень, разыменование ссылок и чтение подчиненных таблиц - дочерние операции, запросы к СУБД - листья. Каскад и N+1 видны как вложенность. `BEGIN`, `COMMIT` и `ROLLBACK` - обычные спаны запроса, долгоживущего спана транзакции нет.
 
@@ -92,8 +92,7 @@ opm install opentelemetry-instrumentation-entity
 ## Документация
 
 - [Руководство](docs/product/010-index.md)
-- [ОтелНаблюдательИсточникаДанных](docs/api/ОтелНаблюдательИсточникаДанных.md)
-- [ОтелИнструментированиеХранилищаСущностей](docs/api/ОтелИнструментированиеХранилищаСущностей.md)
+- [Справочник API](docs/api/index.md)
 - [Наблюдатели источника данных в entity](https://github.com/nixel2007/entity/blob/master/docs/Наблюдатели.md)
 
 ## Лицензия
