@@ -37,6 +37,17 @@ opm install opentelemetry-instrumentation-entity
 
 Наблюдатель регистрируется на источнике данных и видит события всех менеджеров, созданных из него, включая создание таблиц при `Инициализировать`. В приложениях на [Autumn](https://github.com/autumn-library/autumn) регистрацию выполняет `autumn-opentelemetry` вместе с `autumn-data`, вручную ничего делать не нужно.
 
+Вызовы методов хранилищ сущностей инструментируются отдельно — `ОтелИнструментированиеХранилищаСущностей` оборачивает хранилище сущностей и замеряет каждый вызов. Спанов эта обертка не создает: трейс строит наблюдатель источника данных.
+
+```bsl
+Инструментирование = Новый ОтелИнструментированиеХранилищаСущностей(Сдк.ПолучитьМетр("entity"));
+
+ХранилищеСущностей = Инструментирование.Обернуть(
+    МенеджерСущностей.ПолучитьХранилищеСущностей(Тип("Автор")),
+    "ХранилищеАвторы"
+);
+```
+
 ## Сигналы
 
 | Сигнал | Имя | Атрибуты |
@@ -51,6 +62,7 @@ opm install opentelemetry-instrumentation-entity
 | Датчик | `db.client.connection.max`, `db.client.connection.pending_requests` | `db.client.connection.pool.name` |
 | Гистограмма, с | `db.client.connection.wait_time`, `db.client.connection.create_time` | `db.client.connection.pool.name` |
 | Счетчик | `db.client.connection.timeouts` | `db.client.connection.pool.name` |
+| Гистограмма, с | `entity.repository.invocation.duration` | `entity.repository`, `code.function.name`, `entity.repository.state` (`success` или `error`), `error.type` |
 
 Спаны вложены как вызовы: операция из прикладного кода - корень, разыменование ссылок и чтение подчиненных таблиц - дочерние операции, запросы к СУБД - листья. Каскад и N+1 видны как вложенность. `BEGIN`, `COMMIT` и `ROLLBACK` - обычные спаны запроса, долгоживущего спана транзакции нет.
 
@@ -76,7 +88,7 @@ opm install opentelemetry-instrumentation-entity
 ## Документация
 
 - [Руководство](docs/product/010-index.md)
-- [Справочник API](docs/api/ОтелНаблюдательИсточникаДанных.md)
+- [Справочник API](docs/api/index.md)
 - [Наблюдатели источника данных в entity](https://github.com/nixel2007/entity/blob/master/docs/Наблюдатели.md)
 
 ## Лицензия
