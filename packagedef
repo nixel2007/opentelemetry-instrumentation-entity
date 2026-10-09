@@ -4,7 +4,7 @@
 //
 
 Описание.Имя("opentelemetry-instrumentation-entity")
-        .Версия("1.1.0")
+        .Версия("1.1.1")
         .Автор("Nikita Fedkin")
         .АдресАвтора("nixel2007@gmail.com")
         .АдресРепозитория("https://github.com/nixel2007/opentelemetry-instrumentation-entity")
@@ -16,6 +16,7 @@
         .ВключитьФайл("README.md")
         .ВключитьФайл("LICENSE.md")
 
+        .ЗависитОт("collectionos", "0.9.0")
         .ЗависитОт("entity", "5.4.0.0")
         .ЗависитОт("opentelemetry", "1.1.0")
         .ЗависитОт("extends", "0.2.0")
