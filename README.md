@@ -53,7 +53,7 @@ opm install opentelemetry-instrumentation-entity
 
 | Сигнал | Имя | Атрибуты |
 | --- | --- | --- |
-| Спан INTERNAL | `{Операция} {ТипСущности}` - `Сохранить Автор`, `Получить Автор`, `Инициализировать` | `code.namespace`, `code.function.name`, `entity.type`, `entity.table`, `entity.depth`, `entity.result.count`, `error.type` |
+| Спан INTERNAL | `{Операция} {ТипСущности}` - `Сохранить Автор`, `Получить Автор`, `Инициализировать` | `code.function.name`, `entity.type`, `entity.table`, `entity.depth`, `entity.result.count`, `error.type` |
 | Спан CLIENT | `{Операция} {Таблица}` - `SELECT Авторы`, `INSERT Авторы`, `COMMIT` | `db.system.name`, `db.namespace`, `db.collection.name`, `db.operation.name`, `db.query.text`, `db.response.returned_rows`, `server.address`, `server.port`, `error.type` |
 | Гистограмма, с | `db.client.operation.duration` | `db.system.name`, `db.namespace`, `db.collection.name`, `db.operation.name`, `server.address`, `server.port`, `error.type` |
 | Гистограмма, с | `entity.operation.duration` | `entity.operation`, `entity.type`, `error.type` |
